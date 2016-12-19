@@ -65,12 +65,13 @@ class ReportController(main.ReportController):
     def get_xls(self, html):
         wb = xlwt.Workbook()
         ws = wb.add_sheet('Sheet 1')
-        soup = BeautifulSoup(html)
+        soup = BeautifulSoup(html, 'lxml')
         row = 0
-        for tag_id in ['table_header', 'table_body']:
-            # Include a dependency extra when we have a library that
-            # Can achieve the deal is incorrect, TODO: fixme
-            table = soup.find("table", id=tag_id)
+        #for tag_id in ['table_header', 'table_body']:
+        # Include a dependency extra when we have a library that
+        # Can achieve the deal is incorrect, TODO: fixme
+        table = soup.find("table")
+        if table:
             rows = table.findAll("tr")
             for tr in rows:
                 cols = tr.findAll("td")
